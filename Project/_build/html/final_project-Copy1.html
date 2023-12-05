@@ -1,0 +1,1073 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Mobile Country of Origin Classification &#8212; Final Project  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars and line breaks on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+    white-space: pre;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<section id="Mobile-Country-of-Origin-Classification">
+<h1>Mobile Country of Origin Classification<a class="headerlink" href="#Mobile-Country-of-Origin-Classification" title="Permalink to this heading">¶</a></h1>
+<p>Sydney Bergen and Justin Jones</p>
+<p>The goal of this project is to train data and predict a classifier for country of origin for mobile apps. We are using the dataset from nprint. The original intended purpose for this dataset was to “examine the privacy of the 100 most popular IOS and Android applications in India, China, and the US.</p>
+<section id="1.-Load-Libraries">
+<h2>1. Load Libraries<a class="headerlink" href="#1.-Load-Libraries" title="Permalink to this heading">¶</a></h2>
+<p>The first thing to be done is install netml and several other libraries for later usage.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.model_selection import train_test_split
+from netml.pparser.parser import PCAP
+from netml.ndm.gmm import GMM
+from netml.ndm.pca import PCA
+from netml.ndm.model import MODEL
+from netml.ndm.ocsvm import OCSVM
+import numpy as np
+from netml.ndm.kde import KDE
+from netml.ndm.iforest import IF
+from netml.ndm.gmm import GMM
+import sklearn
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.tree import DecisionTreeClassifier
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+%matplotlib inline
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import classification_report
+
+import warnings
+warnings.filterwarnings(&#39;ignore&#39;)
+
+plt.rcParams[&quot;figure.figsize&quot;] = (8,6)
+</pre></div>
+</div>
+</div>
+</section>
+<section id="2.-Load-Data">
+<h2>2. Load Data<a class="headerlink" href="#2.-Load-Data" title="Permalink to this heading">¶</a></h2>
+<p>We took the original data from <a class="reference external" href="https://drive.google.com/file/d/1QRRY5gPPrZ9keOdDORmuGStVjFGapuMn/view?usp=sharing">https://drive.google.com/file/d/1QRRY5gPPrZ9keOdDORmuGStVjFGapuMn/view?usp=sharing</a> and noticed that it was not labelled with a column, but rather in the comments. Sorting the comments, we decided to separate the large pcapng file into 3 separate ones: china, india and us. We can use netml to convert the pcap files to flows.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>RANDOM_STATE = 42
+
+china = PCAP(
+    &#39;content/china.pcapng&#39;, ## you might need to upload the file again
+    flow_ptks_thres=1,
+    random_state=42,
+    verbose=0,
+)
+
+india = PCAP(
+    &#39;content/india.pcapng&#39;, ## you might need to upload the file again
+    flow_ptks_thres=1,
+    random_state=42,
+    verbose=0,
+)
+
+us = PCAP(
+    &#39;content/us.pcapng&#39;, ## you might need to upload the file again
+    flow_ptks_thres=1,
+    random_state=42,
+    verbose=0,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>china.pcap2flows()
+india.pcap2flows()
+us.pcap2flows()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;_pcap2flows()&#39; starts at 2022-12-09 19:19:30
+&#39;_pcap2flows()&#39; starts at 2022-12-09 19:19:30
+&#39;_pcap2flows()&#39; ends at 2022-12-09 19:19:33 and takes 0.0513 mins.
+&#39;_pcap2flows()&#39; starts at 2022-12-09 19:19:33
+&#39;_pcap2flows()&#39; ends at 2022-12-09 19:19:33 and takes 0.0513 mins.
+&#39;_pcap2flows()&#39; starts at 2022-12-09 19:19:33
+&#39;_pcap2flows()&#39; ends at 2022-12-09 19:19:40 and takes 0.12 mins.
+&#39;_pcap2flows()&#39; starts at 2022-12-09 19:19:40
+&#39;_pcap2flows()&#39; ends at 2022-12-09 19:19:40 and takes 0.12 mins.
+&#39;_pcap2flows()&#39; starts at 2022-12-09 19:19:40
+&#39;_pcap2flows()&#39; ends at 2022-12-09 19:19:43 and takes 0.0549 mins.
+&#39;_pcap2flows()&#39; ends at 2022-12-09 19:19:43 and takes 0.0549 mins.
+</pre></div></div>
+</div>
+</section>
+<section id="3.-Feature-Selection">
+<h2>3. Feature Selection<a class="headerlink" href="#3.-Feature-Selection" title="Permalink to this heading">¶</a></h2>
+<p>With the flows, we can select and extract features. We used IAT to see different features, which present flows as timeseries of inter-arrival times between packets. At the end of this step, we make a label for each dataset and combine them. Additionally, we use the train_test_split function to create our training and testing datasets.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># label each flow
+china.label_flows(label=0)
+india.label_flows(label=1)
+us.label_flows(label=2)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;_label_flows()&#39; starts at 2022-12-09 19:19:47
+&#39;_label_flows()&#39; ends at 2022-12-09 19:19:47 and takes 0.0 mins.
+&#39;_label_flows()&#39; starts at 2022-12-09 19:19:47
+&#39;_label_flows()&#39; ends at 2022-12-09 19:19:47 and takes 0.0 mins.
+&#39;_label_flows()&#39; starts at 2022-12-09 19:19:47
+&#39;_label_flows()&#39; ends at 2022-12-09 19:19:47 and takes 0.0 mins.
+&#39;_label_flows()&#39; starts at 2022-12-09 19:19:47
+&#39;_label_flows()&#39; ends at 2022-12-09 19:19:47 and takes 0.0 mins.
+&#39;_label_flows()&#39; starts at 2022-12-09 19:19:47
+&#39;_label_flows()&#39; ends at 2022-12-09 19:19:47 and takes 0.0 mins.
+&#39;_label_flows()&#39; starts at 2022-12-09 19:19:47
+&#39;_label_flows()&#39; ends at 2022-12-09 19:19:47 and takes 0.0 mins.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>## extract features
+china.flow2features(&#39;IAT&#39;, fft=False, header=False)
+india.flow2features(&#39;IAT&#39;, fft=False, header=False)
+us.flow2features(&#39;IAT&#39;, fft=False, header=False)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;_flow2features()&#39; starts at 2022-12-09 19:19:51
+&#39;_flow2features()&#39; ends at 2022-12-09 19:19:51 and takes 0.0012 mins.
+&#39;_flow2features()&#39; starts at 2022-12-09 19:19:51
+&#39;_flow2features()&#39; ends at 2022-12-09 19:19:51 and takes 0.0005 mins.
+&#39;_flow2features()&#39; starts at 2022-12-09 19:19:51
+&#39;_flow2features()&#39; ends at 2022-12-09 19:19:51 and takes 0.0002 mins.
+&#39;_flow2features()&#39; starts at 2022-12-09 19:19:51
+&#39;_flow2features()&#39; ends at 2022-12-09 19:19:51 and takes 0.0012 mins.
+&#39;_flow2features()&#39; starts at 2022-12-09 19:19:51
+&#39;_flow2features()&#39; ends at 2022-12-09 19:19:51 and takes 0.0005 mins.
+&#39;_flow2features()&#39; starts at 2022-12-09 19:19:51
+&#39;_flow2features()&#39; ends at 2022-12-09 19:19:51 and takes 0.0002 mins.
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(features_china, labels_china) = (china.features[:,:5], china.labels)
+(features_india, labels_india) = (india.features[:,:5], india.labels)
+(features_us, labels_us) = (us.features[:,:5], us.labels)
+
+(features, labels) = (np.concatenate((features_china, features_india, features_us), axis=0) ,
+                       np.concatenate((labels_china, labels_india, labels_us), axis=0))
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># split train and test sets
+(features_train,
+    features_test,
+    labels_train,
+    labels_test,
+) = train_test_split(features, labels, test_size=0.33, random_state=RANDOM_STATE)
+</pre></div>
+</div>
+</div>
+</section>
+<section id="4.-Model-Selection-and-Training">
+<h2>4. Model Selection and Training<a class="headerlink" href="#4.-Model-Selection-and-Training" title="Permalink to this heading">¶</a></h2>
+<p>With our datasets ready to be used, we can now create our models and test their accuracies in predicting our test dataset’s labels.</p>
+<section id="Unsupervised-Learning-models">
+<h3>Unsupervised Learning models<a class="headerlink" href="#Unsupervised-Learning-models" title="Permalink to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># create detection models
+model1 = KDE(kernel=&#39;gaussian&#39;, bandwidth=1.0, random_state=RANDOM_STATE)
+model2 = IF(n_estimators=100, random_state=RANDOM_STATE) ## model with best performance
+model3 = PCA(n_components=1, random_state=RANDOM_STATE)
+model4 = OCSVM(kernel=&#39;rbf&#39;, nu=0.5, random_state=RANDOM_STATE)
+model5 = GMM(n_components=2, covariance_type=&#39;full&#39;, random_state=RANDOM_STATE)
+
+model1.name = &#39;KDE&#39;
+model2.name = &#39;IF&#39;
+model3.name = &#39;PCA&#39;
+model4.name = &#39;OCSVM&#39;
+model5.name = &#39;GMM&#39;
+
+ndm1 = MODEL(model1, score_metric=&#39;auc&#39;, verbose=0, random_state=RANDOM_STATE)
+ndm2 = MODEL(model2, score_metric=&#39;auc&#39;, verbose=0, random_state=RANDOM_STATE)
+ndm3 = MODEL(model3, score_metric=&#39;auc&#39;, verbose=0, random_state=RANDOM_STATE)
+ndm4 = MODEL(model4, score_metric=&#39;auc&#39;, verbose=0, random_state=RANDOM_STATE)
+ndm5 = MODEL(model5, score_metric=&#39;auc&#39;, verbose=0, random_state=RANDOM_STATE)
+
+# train the models from the train set
+ndm1.train(features_train)
+ndm2.train(features_train)
+ndm3.train(features_train)
+ndm4.train(features_train)
+ndm5.train(features_train)
+
+# evaluate the trained models
+ndm1.test(features_test, labels_test)
+ndm2.test(features_test, labels_test)
+ndm3.test(features_test, labels_test)
+ndm4.test(features_test, labels_test)
+ndm5.test(features_test, labels_test)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;_train()&#39; starts at 2022-12-09 19:19:57
+&#39;_train()&#39; ends at 2022-12-09 19:19:57 and takes 0.0002 mins.
+&#39;_train()&#39; starts at 2022-12-09 19:19:57
+&#39;_train()&#39; starts at 2022-12-09 19:19:57
+&#39;_train()&#39; ends at 2022-12-09 19:19:57 and takes 0.0002 mins.
+&#39;_train()&#39; starts at 2022-12-09 19:19:57
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[Parallel(n_jobs=8)]: Using backend ThreadingBackend with 8 concurrent workers.
+[Parallel(n_jobs=8)]: Using backend ThreadingBackend with 8 concurrent workers.
+[Parallel(n_jobs=8)]: Done   2 out of   8 | elapsed:    0.4s remaining:    1.1s
+[Parallel(n_jobs=8)]: Done   8 out of   8 | elapsed:    0.4s finished
+[Parallel(n_jobs=8)]: Done   2 out of   8 | elapsed:    0.4s remaining:    1.1s
+[Parallel(n_jobs=8)]: Done   8 out of   8 | elapsed:    0.4s finished
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;_train()&#39; ends at 2022-12-09 19:19:57 and takes 0.0112 mins.
+&#39;_train()&#39; starts at 2022-12-09 19:19:57
+&#39;_train()&#39; ends at 2022-12-09 19:19:57 and takes 0.0019 mins.
+&#39;_train()&#39; starts at 2022-12-09 19:19:57
+&#39;_train()&#39; ends at 2022-12-09 19:19:58 and takes 0.001 mins.
+&#39;_train()&#39; starts at 2022-12-09 19:19:58
+&#39;_train()&#39; ends at 2022-12-09 19:19:57 and takes 0.0112 mins.
+&#39;_train()&#39; starts at 2022-12-09 19:19:57
+&#39;_train()&#39; ends at 2022-12-09 19:19:57 and takes 0.0019 mins.
+&#39;_train()&#39; starts at 2022-12-09 19:19:57
+&#39;_train()&#39; ends at 2022-12-09 19:19:58 and takes 0.001 mins.
+&#39;_train()&#39; starts at 2022-12-09 19:19:58
+&#39;_train()&#39; ends at 2022-12-09 19:19:58 and takes 0.0071 mins.
+&#39;_test()&#39; starts at 2022-12-09 19:19:58
+&#39;_test()&#39; ends at 2022-12-09 19:19:58 and takes 0.0009 mins.
+&#39;_test()&#39; starts at 2022-12-09 19:19:58
+&#39;_test()&#39; ends at 2022-12-09 19:19:58 and takes 0.0015 mins.
+&#39;_test()&#39; starts at 2022-12-09 19:19:58
+&#39;_test()&#39; ends at 2022-12-09 19:19:58 and takes 0.0 mins.
+&#39;_test()&#39; starts at 2022-12-09 19:19:58
+&#39;_test()&#39; ends at 2022-12-09 19:19:58 and takes 0.0009 mins.
+&#39;_test()&#39; starts at 2022-12-09 19:19:58
+&#39;_test()&#39; ends at 2022-12-09 19:19:58 and takes 0.0 mins.
+&#39;_train()&#39; ends at 2022-12-09 19:19:58 and takes 0.0071 mins.
+&#39;_test()&#39; starts at 2022-12-09 19:19:58
+&#39;_test()&#39; ends at 2022-12-09 19:19:58 and takes 0.0009 mins.
+&#39;_test()&#39; starts at 2022-12-09 19:19:58
+&#39;_test()&#39; ends at 2022-12-09 19:19:58 and takes 0.0015 mins.
+&#39;_test()&#39; starts at 2022-12-09 19:19:58
+&#39;_test()&#39; ends at 2022-12-09 19:19:58 and takes 0.0 mins.
+&#39;_test()&#39; starts at 2022-12-09 19:19:58
+&#39;_test()&#39; ends at 2022-12-09 19:19:58 and takes 0.0009 mins.
+&#39;_test()&#39; starts at 2022-12-09 19:19:58
+&#39;_test()&#39; ends at 2022-12-09 19:19:58 and takes 0.0 mins.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># model performances
+print(ndm1.train.tot_time, ndm1.test.tot_time, ndm1.score)
+print(ndm2.train.tot_time, ndm2.test.tot_time, ndm2.score)
+print(ndm3.train.tot_time, ndm3.test.tot_time, ndm3.score)
+print(ndm4.train.tot_time, ndm4.test.tot_time, ndm4.score)
+print(ndm5.train.tot_time, ndm5.test.tot_time, ndm5.score)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.0071 0.0 0.7122805795486208
+0.0071 0.0 0.4059452493730844
+0.0071 0.0 0.6816836166062971
+0.0071 0.0 0.6516613262747283
+0.0071 0.0 0.6077249930342714
+0.0071 0.0 0.7122805795486208
+0.0071 0.0 0.4059452493730844
+0.0071 0.0 0.6816836166062971
+0.0071 0.0 0.6516613262747283
+0.0071 0.0 0.6077249930342714
+</pre></div></div>
+</div>
+</section>
+<section id="Supervised-Learning">
+<h3>Supervised Learning<a class="headerlink" href="#Supervised-Learning" title="Permalink to this heading">¶</a></h3>
+<p>Decision Tree</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn import tree
+
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(features_train, labels_train)
+
+y_hat = clf.predict(features_test)
+
+accuracy = accuracy_score(labels_test,  y_hat)
+
+# print the predictions and the accuracy
+print(accuracy)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.7612244897959184
+0.7612244897959184
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(classification_report(labels_test, y_hat))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+              precision    recall  f1-score   support
+
+           0       0.83      0.89      0.86       147
+           1       0.73      0.76      0.74       194
+           2       0.72      0.64      0.68       149
+
+    accuracy                           0.76       490
+   macro avg       0.76      0.76      0.76       490
+weighted avg       0.76      0.76      0.76       490
+
+              precision    recall  f1-score   support
+
+           0       0.83      0.89      0.86       147
+           1       0.73      0.76      0.74       194
+           2       0.72      0.64      0.68       149
+
+    accuracy                           0.76       490
+   macro avg       0.76      0.76      0.76       490
+weighted avg       0.76      0.76      0.76       490
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cm = confusion_matrix(labels_test, y_hat)
+
+cm_display = ConfusionMatrixDisplay(cm).plot()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/final_project-Copy1_25_0.png" src="_images/final_project-Copy1_25_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/final_project-Copy1_25_1.png" src="_images/final_project-Copy1_25_1.png" />
+</div>
+</div>
+<p>Random Forest</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import RandomForestClassifier
+rf = RandomForestClassifier()
+
+# train the classifier using the labeled points
+rf.fit(features_train, labels_train)
+y_hat = rf.predict(features_test)
+accuracy = accuracy_score(labels_test,  y_hat)
+
+print(accuracy)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.7755102040816326
+0.7755102040816326
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import classification_report
+print(classification_report(labels_test, y_hat))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+              precision    recall  f1-score   support
+
+           0       0.86      0.87      0.86       147
+           1       0.73      0.78      0.75       194
+           2       0.75      0.68      0.71       149
+
+    accuracy                           0.78       490
+   macro avg       0.78      0.78      0.78       490
+weighted avg       0.78      0.78      0.77       490
+
+              precision    recall  f1-score   support
+
+           0       0.86      0.87      0.86       147
+           1       0.73      0.78      0.75       194
+           2       0.75      0.68      0.71       149
+
+    accuracy                           0.78       490
+   macro avg       0.78      0.78      0.78       490
+weighted avg       0.78      0.78      0.77       490
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cm = confusion_matrix(labels_test, y_hat)
+
+cm_display = ConfusionMatrixDisplay(cm).plot()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/final_project-Copy1_29_0.png" src="_images/final_project-Copy1_29_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/final_project-Copy1_29_1.png" src="_images/final_project-Copy1_29_1.png" />
+</div>
+</div>
+<p>Naive Bayes</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.naive_bayes import GaussianNB
+gnb = GaussianNB()
+
+y_pred = gnb.fit(features_train, labels_train).predict(features_test)
+print(&quot;Number of mislabeled points out of a total %d points : %d&quot; % (features_test.shape[0], (labels_test != y_pred).sum()))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Number of mislabeled points out of a total 490 points : 234
+Number of mislabeled points out of a total 490 points : 234
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import classification_report
+print(classification_report(labels_test, y_pred))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+              precision    recall  f1-score   support
+
+           0       0.59      0.32      0.41       147
+           1       0.74      0.38      0.50       194
+           2       0.44      0.91      0.59       149
+
+    accuracy                           0.52       490
+   macro avg       0.59      0.54      0.50       490
+weighted avg       0.60      0.52      0.50       490
+
+              precision    recall  f1-score   support
+
+           0       0.59      0.32      0.41       147
+           1       0.74      0.38      0.50       194
+           2       0.44      0.91      0.59       149
+
+    accuracy                           0.52       490
+   macro avg       0.59      0.54      0.50       490
+weighted avg       0.60      0.52      0.50       490
+
+</pre></div></div>
+</div>
+<p>We can create confusion matrices to visualize the accuracy of our models, as seen below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cm = confusion_matrix(labels_test, y_pred)
+
+cm_display = ConfusionMatrixDisplay(cm).plot()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/final_project-Copy1_34_0.png" src="_images/final_project-Copy1_34_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/final_project-Copy1_34_1.png" src="_images/final_project-Copy1_34_1.png" />
+</div>
+</div>
+<p>Catbost</p>
+</section>
+</section>
+<section id="5.-Final-Model-Training-and-Tuning">
+<h2>5. Final Model Training and Tuning<a class="headerlink" href="#5.-Final-Model-Training-and-Tuning" title="Permalink to this heading">¶</a></h2>
+<p>Given the above exploration, it seems like the random forest model is the most accurate. Given that, we now finetune the hyperparameters and perform k cross fold validation to get our final mode. The grid search takes a while to run (~20 minutes) since it is running over many different combinations of hyperparameters.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.model_selection import GridSearchCV
+import pandas as pd
+
+param_grid = {
+    &#39;bootstrap&#39;: [True],
+    &#39;max_depth&#39;: [80, 90, 100, 110],
+    &#39;max_features&#39;: [2, 3],
+    &#39;min_samples_leaf&#39;: [3, 4, 5],
+    &#39;min_samples_split&#39;: [8, 10, 12],
+    &#39;n_estimators&#39;: [100, 200, 300, 1000]
+}
+
+base_estimator = RandomForestClassifier(random_state=0)
+
+grid_model = GridSearchCV(base_estimator, param_grid, cv=5, return_train_score=True).fit(features_train, labels_train)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cv_results = pd.DataFrame(grid_model.cv_results_)
+cv_results
+</pre></div>
+</div>
+</div>
+<p>Final Model Evaluation</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>best_grid = grid_model.best_estimator_
+
+y_pred = best_grid.predict(features_test)
+cm = confusion_matrix(labels_test, y_pred)
+cm_display = ConfusionMatrixDisplay(cm).plot()
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>accuracy_score(labels_test, y_pred)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(classification_report(labels_test, y_pred))
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.linear_model import LogisticRegression
+
+from sklearn.metrics import roc_curve
+from sklearn.metrics import RocCurveDisplay
+from sklearn.preprocessing import label_binarize
+from sklearn.metrics import auc
+
+#Binarize the output
+y_test_bin = label_binarize(labels_test, classes=[0, 1, 2])
+n_classes = y_test_bin.shape[1]
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fpr = dict()
+tpr = dict()
+roc_auc = dict()
+
+y_score = best_grid.predict_proba(features_test)
+
+for i in range(n_classes):
+  fpr[i], tpr[i], _ = roc_curve(y_test_bin[:, i], y_score[:, i])
+  plt.plot(fpr[i], tpr[i], color=&#39;darkorange&#39;, lw=2)
+  print(&#39;AUC for Class {}: {}&#39;.format(i+1, auc(fpr[i], tpr[i])))
+
+plt.plot([0, 1], [0, 1], color=&#39;navy&#39;, lw=2, linestyle=&#39;--&#39;)
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel(&#39;False Positive Rate&#39;)
+plt.ylabel(&#39;True Positive Rate&#39;)
+plt.title(&#39;Receiver Operating Characteristic Curves&#39;)
+plt.show()
+
+## source: https://laurenliz22.github.io/roc_curve_multiclass_predictions_random_forest_classifier
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Final Project</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Sydney Bergen and Justin Jones.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/final_project-Copy1.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
